@@ -1,19 +1,15 @@
 package tests;
 import helperpackage.Car;
 import helperpackage.TestValueExtractor;
-//
-// import jdk.jfr.internal.LogLevel;
-import org.junit.*;
-import org.junit.jupiter.api.AfterEach;
+
+import org.junit.Assert;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.junit.runners.Parameterized;
+
 import org.openqa.selenium.WebDriver;
 import pomPages.CarTaxHomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,19 +24,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-@FixMethodOrder(MethodSorters.DEFAULT)
-public class CarTaxPageTest {
-    String drivePath = "./src/test/drivers/chromedriver.exe";
+public class carTest {
+    static String drivePath = "./src/test/drivers/chromedriver.exe";
     String currentUrl;
-    WebDriver driver;
+    static WebDriver driver;
     CarTaxHomePage homePage;
     FreeCheckPage freePage;
-    FileHandler fh;
-    Logger logger = Logger.getLogger(CarTaxPageTest.class.getName());
+    static FileHandler fh;
+    static Logger logger = Logger.getLogger(carTest.class.getName());
     List<String> input_values = TestValueExtractor.getInputValuesBase();
     String inputsCsv = String.join(",", input_values);
     List<Car> output_values = TestValueExtractor.getOutputValues();
-    public CarTaxPageTest() throws IOException {
+    public carTest() throws IOException {
     }
 
     //for info
@@ -58,7 +53,7 @@ public class CarTaxPageTest {
         logger.log(Level.WARNING,str);
     }
 
-
+    @BeforeEach
     public void reset(){
         driver.navigate().to("https://cartaxcheck.co.uk/");
     }
@@ -87,30 +82,27 @@ public class CarTaxPageTest {
         }
     }
 
-    @BeforeClass
+   /* @BeforeEach
     public void setLogger() throws IOException {
-        String date = java.time.LocalDate.now().toString();
-        String name = "log " + date + ".txt";
-        fh = new FileHandler("./src/test/logs/" + name);
-        logger.addHandler(fh);
-    }
+
+    }*/
 
     //set the environment before each test
-    @BeforeEach
-    public void setEnv() throws IOException {
+    @BeforeAll
+    public static void setEnv() throws IOException {
+        String date = java.time.LocalDate.now().toString();
+        String name = "log " + date + ".txt";
+        fh = new FileHandler("./src/test/logs/" + name, true);
+        logger.addHandler(fh);
         System.setProperty("webdriver.chrome.driver", drivePath);
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://cartaxcheck.co.uk/");
     }
 
-    @AfterEach
-    public void closeEnd() throws IOException{
-        driver.close();
-    }
 
-    @AfterClass
-    public void closeEnv(){
+    @AfterAll
+    public static void closeEnv(){
         for(Handler h:logger.getHandlers())
         {
             h.close();   //must call h.close or a .LCK file will remain.
@@ -119,15 +111,13 @@ public class CarTaxPageTest {
     }
 
 
-    /*@Test
+    @Test
     public void a_testPageUp() throws InterruptedException {
         homePage = new CarTaxHomePage(driver);
-        Thread.sleep(500);
+        Thread.sleep(2000);
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
-        Thread.sleep(500);
-        driver.close();
-    }*/
+    }
 
     @ParameterizedTest
     @MethodSource("getInputs")
@@ -146,8 +136,8 @@ public class CarTaxPageTest {
         if (freePage.badReq()){
             String error = "Bad request given, register of : " + capitalisedReg;
             logWarning(error);
-            reset();
-            Assert.assertTrue(!currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
+            //reset();
+            Assert.assertTrue(false);
         }
         currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)\\S+"));
@@ -166,7 +156,7 @@ public class CarTaxPageTest {
         Assert.assertTrue(outputExpected.getColor().equals(color));
         Assert.assertTrue(outputExpected.getYearMake().equals(year));
         driver.navigate().to("https://cartaxcheck.co.uk/");
-        reset();
+        //reset();
         currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
     }

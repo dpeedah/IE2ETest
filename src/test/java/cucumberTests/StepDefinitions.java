@@ -1,6 +1,7 @@
-package StepDefinition;
+package cucumberTests;
 import helperpackage.Car;
 import io.cucumber.java.en.Given;
+import org.junit.Assert;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import pomPages.CarTaxHomePage;
@@ -11,12 +12,17 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-public class TaxCheckStepDef {
+public class StepDefinitions {
     String drivePath = "./src/test/drivers/chromedriver.exe";
     String currentUrl;
     WebDriver driver;
     CarTaxHomePage homePage;
     FreeCheckPage freePage;
+
+    @Given("Valid Registration value of {string}")
+    public void checkReg(String reg){
+        Assert.assertTrue(Car.isValid(reg));
+    }
 
     @When("the website {string} is live")
     public void openSite(String url) throws IOException {
@@ -60,12 +66,6 @@ public class TaxCheckStepDef {
         }
     }
 
-    @Given("Valid Registration value of {string}")
-    public void checkReg(String reg){
-        if (!Car.isValid(reg)){
-            throw new InvalidArgumentException("Invalid reg");
-        };
-    }
 
 
 

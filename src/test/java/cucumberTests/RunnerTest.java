@@ -1,11 +1,11 @@
-package cucumber;
+package cucumberTests;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/java/cucumber", glue={"stepDefinition"})
+@CucumberOptions(features = "src/test/resources", publish = true, glue = {"StepDefinitions"})
 public class RunnerTest
 {
 
