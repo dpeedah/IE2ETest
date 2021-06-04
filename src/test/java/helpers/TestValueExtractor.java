@@ -74,4 +74,11 @@ public class TestValueExtractor {
         }
         return cars;
     }
+
+ /*   public static void checkLogFile() throws IOException {
+        File tmp = new File("src/test/logs/testlog.txt");
+        if (!tmp.exists()){
+            tmp.createNewFile();
+        }
+    }*/
 }
