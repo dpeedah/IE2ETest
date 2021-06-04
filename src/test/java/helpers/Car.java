@@ -10,6 +10,17 @@ public class Car {
     public Car() {
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "reg='" + reg + '\'' +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", yearMake=" + yearMake +
+                '}';
+    }
+
     public Car(String reg, String make, String model, String color, Integer yearMake) {
         this.reg = reg;
         this.make = make;

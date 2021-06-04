@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class TestValueExtractor {
 
-    // the regex used to find number plates is ([A-Z]{2}[0-9]{2}\s?[A-Z]{3}) , using s? to allow for spaces
+    // The regex used to find number plates is ([A-Z]{2}[0-9]{2}\s?[A-Z]{3}) , using s? to allow for spaces
     // follows the required format from https://www.thecarexpert.co.uk/how-does-the-uk-number-plate-system-work/
 
     public static List<String> getInputValuesBase() throws IOException{
@@ -52,6 +52,7 @@ public class TestValueExtractor {
     }
 
 
+    // Get output values following a csv format, although file is .txt
     public static List<Car> getOutputValues() throws IOException {
         List<Car> cars = new ArrayList<Car>();
         String delimiter = ",";
@@ -75,10 +76,4 @@ public class TestValueExtractor {
         return cars;
     }
 
- /*   public static void checkLogFile() throws IOException {
-        File tmp = new File("src/test/logs/testlog.txt");
-        if (!tmp.exists()){
-            tmp.createNewFile();
-        }
-    }*/
 }

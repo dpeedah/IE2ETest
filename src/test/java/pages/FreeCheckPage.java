@@ -14,15 +14,23 @@ public class FreeCheckPage {
 
     By makeTableText = By.xpath("//./dt[.='Make']/following-sibling::dd");
 
-    By modelTableText = By.xpath("//./dt[.='Colour']/following-sibling::dd");
+    By modelTableText = By.xpath("//./dt[.='Model']/following-sibling::dd");
 
     By colour = By.xpath("//./dt[.='Colour']/following-sibling::dd");
 
     By year = By.xpath("//./dt[.='Year']/following-sibling::dd");
 
+    By redo = By.linkText("Try Again");
 
     public FreeCheckPage(WebDriver driver){
         this.driver = driver;
+    }
+
+    public Boolean badReq(){
+        if (driver.findElements(redo).size() != 0){
+            return true;
+        }
+        return false;
     }
 
     public String getRegReturned(){
