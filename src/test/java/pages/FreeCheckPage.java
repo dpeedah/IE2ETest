@@ -8,42 +8,45 @@ public class FreeCheckPage {
 
     WebDriver driver;
     // input field for rg
-    By regTextField = By.name("vrm");
+    By regTextField = By.id("vrm-input");
 
-    // get full check 'button'
-    By fullCheckLink = By.linkText("Get a Full Check");
+    By regTableText = By.xpath("//./dt[.='Registration']/following-sibling::dd");
 
-    // get free check button
-    By freeCheckBtn = By.xpath("//button[contains(text(),'Free Car Check')]");
+    By makeTableText = By.xpath("//./dt[.='Make']/following-sibling::dd");
 
-    // get x off MOT with fixter link
-    By getMoneyOff = By.linkText("Get £10 off MOT or Servicing with Fixter");
+    By modelTableText = By.xpath("//./dt[.='Colour']/following-sibling::dd");
 
-    //mot check link
-    By motCheckRelink = By.cssSelector("a[href=/mot-check/]");
+    By colour = By.xpath("//./dt[.='Colour']/following-sibling::dd");
 
-    // car history check link
-    By carHistoryCheck = By.cssSelector("a[href=/car-history-check/]");
+    By year = By.xpath("//./dt[.='Year']/following-sibling::dd");
+
 
     public FreeCheckPage(WebDriver driver){
         this.driver = driver;
     }
 
-    public void editText(String str){
-        driver.findElement(regTextField).sendKeys(str);
-    }
-
-    public String getText(){
-        String txt = driver.findElement(regTextField).getText();
+    public String getRegReturned(){
+        String txt = driver.findElement(regTableText).getText();
         return txt;
     }
 
-
-    public void clickFreeCheck(){
-        driver.findElement(freeCheckBtn).click();
+    public String getMakeReturned(){
+        String txt = driver.findElement(makeTableText).getText();
+        return txt;
     }
 
-    public void clickFullCheck(){
-        driver.findElement(fullCheckLink).click();
+    public String getModelReturned(){
+        String txt = driver.findElement(modelTableText).getText();
+        return txt;
     }
+    public String getColourReturned(){
+        String txt = driver.findElement(colour).getText();
+        return txt;
+    }
+
+    public Integer getYearReturned(){
+        String txt = driver.findElement(year).getText();
+        return Integer.parseInt(txt);
+    }
+
 }

@@ -16,7 +16,7 @@ public class fileHandlerTest {
     public void testGetInputs(){
         List<String> inputs = new ArrayList<String>();
         try {
-           inputs = TestValueExtractor.getInputValues();
+           inputs = TestValueExtractor.getInputValuesBase();
         } catch (IOException e) {
             e.printStackTrace();
         }
