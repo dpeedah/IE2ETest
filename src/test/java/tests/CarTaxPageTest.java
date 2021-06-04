@@ -1,15 +1,13 @@
 package tests;
-import helpers.Car;
-import helpers.TestValueExtractor;
+import helperpackage.Car;
+import helperpackage.TestValueExtractor;
 //
 // import jdk.jfr.internal.LogLevel;
-import io.cucumber.java.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
-import pages.CarTaxHomePage;
+import pomPages.CarTaxHomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.FreeCheckPage;
+import pomPages.FreeCheckPage;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
 import java.io.IOException;
@@ -22,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class CarTaxPageTest {
     SoftAssert softAssert = new SoftAssert();
-    String drivePath = "./src/test/lib/chromedriver.exe";
+    String drivePath = "./src/test/drivers/chromedriver.exe";
     String currentUrl;
     WebDriver driver;
     CarTaxHomePage homePage;
@@ -77,16 +75,21 @@ public class CarTaxPageTest {
         }
     }
 
+    @BeforeClass
+    public void setLogger() throws IOException {
+        String date = java.time.LocalDate.now().toString();
+        String name = "log " + date + ".txt";
+        fh = new FileHandler("./src/test/logs/" + name);
+        logger.addHandler(fh);
+    }
 
     //set the environment before each test
     @BeforeMethod
     public void setEnv() throws IOException {
-        fh = new FileHandler("./src/test/logs/log.txt");
         System.setProperty("webdriver.chrome.driver", drivePath);
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://cartaxcheck.co.uk/");
-        logger.addHandler(fh);
     }
 
     @AfterClass

@@ -1,4 +1,9 @@
-package helpers;
+package helperpackage;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Car {
     private String reg;
@@ -20,6 +25,16 @@ public class Car {
                 ", yearMake=" + yearMake +
                 '}';
     }
+    // Ensures register values are correct
+    public static Boolean isValid(String reg){
+        Matcher matcher = Pattern.compile("([A-Z]{2}[0-9]{2}\\s?[A-Z]{3})").matcher(reg);
+        if (matcher.matches()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public Car(String reg, String make, String model, String color, Integer yearMake) {
         this.reg = reg;
@@ -28,6 +43,8 @@ public class Car {
         this.color = color;
         this.yearMake = yearMake;
     }
+
+
 
     public String getReg() {
         return reg;
