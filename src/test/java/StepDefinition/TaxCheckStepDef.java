@@ -1,25 +1,16 @@
-package cucumberTests;
+package StepDefinition;
 import helperpackage.Car;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import pomPages.CarTaxHomePage;
 import pomPages.FreeCheckPage;
-import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
-import pomPages.CarTaxHomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pomPages.FreeCheckPage;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.runner.RunWith;
-
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 public class TaxCheckStepDef {
     String drivePath = "./src/test/drivers/chromedriver.exe";
     String currentUrl;

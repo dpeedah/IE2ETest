@@ -1,12 +1,12 @@
 package tests;
 import helperpackage.Car;
 import helperpackage.TestValueExtractor;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 public class fileHandlerTest {
 
