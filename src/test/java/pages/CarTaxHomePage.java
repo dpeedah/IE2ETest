@@ -14,7 +14,7 @@ public class CarTaxHomePage {
     By fullCheckLink = By.linkText("Get a Full Check");
 
     // get free check button
-    By freeCheckBtn = By.xpath("//button[contains(text(),'Free Car Check')]");
+    By freeCheckBtn = By.xpath("//button[contains(text(),'Free helpers.Car Check')]");
 
     // get x off MOT with fixter link
     By getMoneyOff = By.linkText("Get £10 off MOT or Servicing with Fixter");
