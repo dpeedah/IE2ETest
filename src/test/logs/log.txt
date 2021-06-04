@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
+<record>
+  <date>2021-06-04T15:05:58.077893900Z</date>
+  <millis>1622819158077</millis>
+  <nanos>893900</nanos>
+  <sequence>2</sequence>
+  <logger>tests.CarTaxPageTest</logger>
+  <level>INFO</level>
+  <class>tests.CarTaxPageTest</class>
+  <method>logInfo</method>
+  <thread>1</thread>
+  <message>MATCHING OUTPUT - EXPECTED : Car{reg='DN09HRM', make='BMW', model='320D Se', color='Black', yearMake=2009}
+ REAL OUTPUT : Car{reg='DN09HRM', make='BMW', model='320D Se', color='Black', yearMake=2009}</message>
+</record>
+<record>
+  <date>2021-06-04T15:06:01.485360400Z</date>
+  <millis>1622819161485</millis>
+  <nanos>360400</nanos>
+  <sequence>3</sequence>
+  <logger>tests.CarTaxPageTest</logger>
+  <level>WARNING</level>
+  <class>tests.CarTaxPageTest</class>
+  <method>logWarning</method>
+  <thread>1</thread>
+  <message>Bad request given, register of : BW57BOW</message>
+</record>
+<record>
+  <date>2021-06-04T15:06:10.954990300Z</date>
+  <millis>1622819170954</millis>
+  <nanos>990300</nanos>
+  <sequence>4</sequence>
+  <logger>tests.CarTaxPageTest</logger>
+  <level>INFO</level>
+  <class>tests.CarTaxPageTest</class>
+  <method>logInfo</method>
+  <thread>1</thread>
+  <message>MATCHING OUTPUT - EXPECTED : Car{reg='KT17DLX', make='Skoda', model='Superb Sportline Tdi S-A', color='White', yearMake=2017}
+ REAL OUTPUT : Car{reg='KT17DLX', make='Skoda', model='Superb Sportline Tdi S-A', color='White', yearMake=2017}</message>
+</record>
+<record>
+  <date>2021-06-04T15:06:20.471468800Z</date>
+  <millis>1622819180471</millis>
+  <nanos>468800</nanos>
+  <sequence>5</sequence>
+  <logger>tests.CarTaxPageTest</logger>
+  <level>INFO</level>
+  <class>tests.CarTaxPageTest</class>
+  <method>logInfo</method>
+  <thread>1</thread>
+  <message>MATCHING OUTPUT - EXPECTED : Car{reg='SG18HTN', make='Volkswagen', model='Golf Se Navigation Tsi Evo', color='White', yearMake=2018}
+ REAL OUTPUT : Car{reg='SG18HTN', make='Volkswagen', model='Golf Se Navigation Tsi Evo', color='White', yearMake=2018}</message>
+</record>
 </log>

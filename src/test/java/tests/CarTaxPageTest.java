@@ -1,7 +1,10 @@
 package tests;
 import helpers.Car;
 import helpers.TestValueExtractor;
-import jdk.jfr.internal.LogLevel;
+//
+// import jdk.jfr.internal.LogLevel;
+import io.cucumber.java.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 import pages.CarTaxHomePage;
@@ -49,6 +52,7 @@ public class CarTaxPageTest {
     public void reset(){
         driver.navigate().to("https://cartaxcheck.co.uk/");
     }
+
     public Car getOutputCar(String reg) throws IOException {
         List<Car> outputs = TestValueExtractor.getOutputValues();
         Car returnCar = new Car();
@@ -62,18 +66,20 @@ public class CarTaxPageTest {
     }
 
     public void compareOutputCars(Car realCar, Car expected){
-        if ( realCar.equals(expected)){
-            logFine("Car of reg " + realCar.getReg() + " Returned expected values when searched on cartaxcheck");
+        if ( (realCar.getReg().equals(expected.getReg()))
+            && (realCar.getColor().equals(expected.getColor()))
+        && (realCar.getMake().equals(expected.getMake()))
+        && (realCar.getModel().equals(expected.getModel()))
+        && (realCar.getYearMake().equals(expected.getYearMake())) ){
+            logInfo("MATCHING OUTPUT - EXPECTED : " + expected.toString() + "\n REAL OUTPUT : " + realCar.toString());
         }else{
-            if (realCar.getColor() != expected.getColor()){
-                logWarning("Expeced : " + expected.toString() +  "\n" +  "Returned : " + realCar.toString());
-            }
+            logWarning("FAILURE - Expected : " + expected.toString() +  "\n" +  "Returned : " + realCar.toString());
         }
     }
 
 
     //set the environment before each test
-    @BeforeClass
+    @BeforeMethod
     public void setEnv() throws IOException {
         fh = new FileHandler("./src/test/logs/log.txt");
         System.setProperty("webdriver.chrome.driver", drivePath);
@@ -93,21 +99,24 @@ public class CarTaxPageTest {
     }
 
 
-    @Test
-    public void testPageUp(){
+    @Test(priority = 0)
+    public void testPageUp() throws InterruptedException {
         homePage = new CarTaxHomePage(driver);
+        Thread.sleep(500);
         String currentUrl = driver.getCurrentUrl();
         softAssert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
         softAssert.assertAll();
+        Thread.sleep(500);
+        driver.close();
     }
 
     //tests all inputs with outputs
-    @Test
+    @Test(priority = 1)
     public void testInputsAndOutputs() throws IOException, InterruptedException {
-        List<String> inputs = TestValueExtractor.getInputValuesBase();
-        List<Car> outputs = TestValueExtractor.getOutputValues();
-        for (int x = 0; x < inputs.size() ; ++x){
-            String regNoSpace = inputs.get(x).replace(" ","");
+        List<String> input_values = TestValueExtractor.getInputValuesBase();
+        List<Car> output_values = TestValueExtractor.getOutputValues();
+        for (int x = 0; x < input_values.size() ; ++x){
+            String regNoSpace = input_values.get(x).replace(" ","");
             String capitalisedReg = regNoSpace.toUpperCase(Locale.ROOT);
             homePage = new CarTaxHomePage(driver);
             Thread.sleep(1000);
@@ -117,11 +126,12 @@ public class CarTaxPageTest {
             Thread.sleep(1000);
             freePage = new FreeCheckPage(driver);
 
+            // badReq() returns true if the "Vehicle not found" error appears on the site This causes the test to fail.
             if (freePage.badReq()){
                 String error = "Bad request given, register of : " + capitalisedReg;
-                logInfo(error);
+                logWarning(error);
                 reset();
-                softAssert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
+                softAssert.assertTrue(!currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
                 continue;
             }
 
