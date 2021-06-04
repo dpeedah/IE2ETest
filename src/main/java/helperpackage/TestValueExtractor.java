@@ -33,18 +33,20 @@ public class TestValueExtractor {
         List<String> validNumberPlates = new ArrayList<String>();
         File dir = new File ("src/main/resources");
         File[] dirList = dir.listFiles();
+        String nLine = "";;
         if (dirList != null){
             for (File child : dirList){
-                if (child.getName().matches("(input.txt)")){
+                if ( !child.getName().matches("^(\\S+_input.txt)")){
                     continue;
                 }
                 BufferedReader reader = new BufferedReader(new FileReader(child));
-                String nLine = "";;
-                while ( (nLine = reader.readLine()) != null) {
+                nLine = reader.readLine();
+                while ( nLine != null) {
                     Matcher matcher = Pattern.compile("([A-Z]{2}[0-9]{2}\\s?[A-Z]{3})").matcher(nLine);
                     while (matcher.find()){
                         validNumberPlates.add(matcher.group());
                     }
+                    nLine = reader.readLine();
                 }
             }
         }
