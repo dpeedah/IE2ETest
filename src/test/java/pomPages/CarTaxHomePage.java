@@ -20,10 +20,10 @@ public class CarTaxHomePage {
     By getMoneyOff = By.linkText("Get £10 off MOT or Servicing with Fixter");
 
     //mot check link
-    By motCheckRelink = By.cssSelector("a[href=/mot-check/]");
+    //By motCheckRelink = By.cssSelector("a[href=/mot-check/]");
 
     // car history check link
-    By carHistoryCheck = By.cssSelector("a[href=/car-history-check/]");
+    //By carHistoryCheck = By.cssSelector("a[href=/car-history-check/]");
 
     public CarTaxHomePage(WebDriver driver){
         this.driver = driver;
