@@ -1,12 +1,7 @@
 package tests;
 import helperpackage.Car;
 import helperpackage.TestValueExtractor;
-
-import org.junit.Assert;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -116,7 +111,7 @@ public class carTest {
         homePage = new CarTaxHomePage(driver);
         Thread.sleep(2000);
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
+        Assertions.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
     }
 
     @ParameterizedTest
@@ -137,10 +132,10 @@ public class carTest {
             String error = "Bad request given, register of : " + capitalisedReg;
             logWarning(error);
             //reset();
-            Assert.assertTrue(false);
+            Assertions.assertTrue(false);
         }
         currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)\\S+"));
+        Assertions.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)\\S+"));
         Thread.sleep(1000);
         String reg = freePage.getRegReturned();
         String make = freePage.getMakeReturned();
@@ -150,15 +145,15 @@ public class carTest {
         Car realCar = new Car(reg,make,model,color,year);
         Car outputExpected = getOutputCar(capitalisedReg);
         compareOutputCars(realCar,outputExpected);
-        Assert.assertTrue(outputExpected.getReg().equals(reg));
-        Assert.assertTrue(outputExpected.getMake().equals(make));
-        Assert.assertTrue(outputExpected.getModel().equals(model));
-        Assert.assertTrue(outputExpected.getColor().equals(color));
-        Assert.assertTrue(outputExpected.getYearMake().equals(year));
+        Assertions.assertTrue(outputExpected.getReg().equals(reg));
+        Assertions.assertTrue(outputExpected.getMake().equals(make));
+        Assertions.assertTrue(outputExpected.getModel().equals(model));
+        Assertions.assertTrue(outputExpected.getColor().equals(color));
+        Assertions.assertTrue(outputExpected.getYearMake().equals(year));
         driver.navigate().to("https://cartaxcheck.co.uk/");
         //reset();
         currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
+        Assertions.assertTrue(currentUrl.matches("^(https:\\/\\/cartaxcheck.co.uk\\/)"));
     }
 
 

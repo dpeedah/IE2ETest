@@ -1,8 +1,8 @@
 package tests;
 import helperpackage.Car;
 import helperpackage.TestValueExtractor;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class fileHandlerTest {
             e.printStackTrace();
         }
         int inputSize = inputs.size();
-        Assert.assertTrue(inputSize > 0);
+        Assertions.assertTrue(inputSize > 0);
     }
 
     @Test
@@ -31,6 +31,6 @@ public class fileHandlerTest {
             e.printStackTrace();
         }
         int inputSize = cars.size();
-        Assert.assertTrue(inputSize > 0);
+        Assertions.assertTrue(inputSize > 0);
     }
 }
